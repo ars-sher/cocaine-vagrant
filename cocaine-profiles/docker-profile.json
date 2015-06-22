@@ -1,4 +1,5 @@
 {
+    "log-output": true,
     "queue-limit": 1000,
     "pool-limit": 10,
     "isolate": {
@@ -6,7 +7,7 @@
         "args": {
             "memory_limit": 1000000000,
             "endpoint": "unix:///var/run/docker.sock",
-            "registry": "registry.cloud.net:5000",
+            "registry": "192.168.0.2:5000",
             "cpu_shares": 0
         }
  

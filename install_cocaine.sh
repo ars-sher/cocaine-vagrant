@@ -18,8 +18,10 @@ source /etc/environment
 
 echo "*** Updating repositories... ***"
 sudo apt-get update
-echo "*** Installing git... ***"
+echo "*** Installing git and dev things... ***"
 sudo apt-get install git
+sudo aptitude install -y equivs devscripts
+sudo aptitude install -y python-pip python-dev
 
 echo "*** Cloning repository with cocaine-runtime server... ***"
 mkdir -p /home/vagrant/cocaine-core
@@ -34,23 +36,28 @@ git clone https://github.com/cocaine/cocaine-tools.git -b v0.11 /home/vagrant/co
 
 echo "*** Cloning repositories with frameworks ***"
 mkdir -p /home/vagrant/cocaine-framework-python && mkdir -p /home/vagrant/cocaine-framework-java
-#These repositories contain frameworks that you will use to create apps
-#Python
 git clone https://github.com/cocaine/cocaine-framework-python.git -b v0.11 /home/vagrant/cocaine-framework-python
-#Java
 git clone https://github.com/cocaine/cocaine-framework-java.git /home/vagrant/cocaine-framework-java
-
-echo "*** Installing dev things ***"
-sudo aptitude install -y equivs devscripts
-sudo aptitude install -y python-pip python-dev
 
 echo "*** cocaine-runtime mk-build-deps ***"
 cd /home/vagrant/cocaine-core/
 sudo mk-build-deps -ir
-echo "*** Building and packaging cocaine-runtime ***"
-sudo debuild -sa -us -uc
+
+packages_dir="/vagrant/packages"
+mkdir -p "$packages_dir"
+
+if test "$(ls -A "$packages_dir")"; then
+    echo "*** $packages_dir is not empty, installing packages packages from it ***"
+    cd "$packages_dir"
+else
+    echo "*** $packages_dir is empty, building cocaine-core from a scratch ***"
+    echo "*** Building and packaging cocaine-runtime ***"
+    sudo debuild -sa -us -uc
+    cd ..
+    cp *.deb /vagrant/packages/
+fi
+
 echo "*** Installing cocaine-runtime ***"
-cd ..
 sudo dpkg -i cocaine-dbg_*_amd64.deb cocaine-runtime_*_amd64.deb libcocaine-core2_*_amd64.deb libcocaine-dev_*_amd64.deb
 
 echo "*** Installing Docker ***"
@@ -60,3 +67,6 @@ echo "*** Installing cocaine-tools ***"
 cd /home/vagrant/cocaine-tools/
 sudo python setup.py install
 
+echo "*** Installing python framework ***"
+cd /home/vagrant/cocaine-framework-python
+sudo python setup.py install

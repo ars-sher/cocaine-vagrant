@@ -8,7 +8,7 @@ asynchronous = chain.source
 
 if __name__ == '__main__':
     io_loop = IOLoop.current()
-    service = Service('Echo')
+    service = Service('echo-app')
 
     @asynchronous
     def invoke(message):

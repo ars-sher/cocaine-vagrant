@@ -1,4 +1,6 @@
 {
+    "idle-timeout": 5.0,
+    "log-output": true,
     "isolate": {
         "args": {
             "spool": "/var/spool/cocaine"

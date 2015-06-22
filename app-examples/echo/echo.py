@@ -13,7 +13,7 @@ log = Logger()
 def echo(request, response):
     message = yield request.read()
     log.debug('Message received: \'{0}\'. Sending it back ...'.format(message))
-    response.write(message + "from cocaine")
+    response.write(message + "FROM COCAINE")
     response.close()
 
 def hello(request, response):
@@ -24,5 +24,5 @@ def hello(request, response):
 W = Worker()
 W.run({
     'ping': echo,
-    'hello': hello.
+    'hello': hello
 })
