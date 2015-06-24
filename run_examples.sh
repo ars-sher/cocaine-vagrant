@@ -3,12 +3,12 @@
 set -e
 
 echo "*** Removing old entries, if any... ***"
-cocaine-tool app stop --name Echo || true
-cocaine-tool app stop --name QR || true
-cocaine-tool app stop --name DockerEcho || true
-cocaine-tool app remove --name Echo || true
-cocaine-tool app remove --name QR || true
-cocaine-tool app remove --name DockerEcho || true
+cocaine-tool app stop --name "echo-app" || true
+cocaine-tool app stop --name qr || true
+cocaine-tool app stop --name "echo-docker" || true
+cocaine-tool app remove --name "echo-app" || true
+cocaine-tool app remove --name qr || true
+cocaine-tool app remove --name "echo-docker" || true
 cocaine-tool profile remove --name process-example
 cocaine-tool profile remove --name docker-example
 
@@ -25,9 +25,9 @@ cd /vagrant/app-examples/qr
 cocaine-tool app upload --name qr
 
 echo "*** Starting apps... ***"
-cocaine-tool app start -n Echo --profile process-example
+cocaine-tool app start -n "echo-app" --profile process-example
 # cocaine-tool app start --name echo-docker --profile docker-example
 
-cocaine-tool app check -n Echo || true
-cocaine-tool app check -n QR || true
-cocaine-tool app check -n DockerEcho || true
+cocaine-tool app check -n "echo-app" || true
+cocaine-tool app check -n qr || true
+cocaine-tool app check -n "echo-docker" || true

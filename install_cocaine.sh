@@ -16,8 +16,6 @@ EOF'
 sudo sh -c 'echo "export LC_ALL=\"en_US.UTF-8\"" >> /etc/environment'
 source /etc/environment
 
-echo "*** Updating repositories... ***"
-sudo apt-get update
 echo "*** Installing git and dev things... ***"
 sudo apt-get install git
 sudo aptitude install -y equivs devscripts
@@ -70,3 +68,10 @@ sudo python setup.py install
 echo "*** Installing python framework ***"
 cd /home/vagrant/cocaine-framework-python
 sudo python setup.py install
+
+echo "*** Installing elliptics ***"
+ELLIPTICS_VERSION=2.26.5.4
+sudo apt-get install -y elliptics="${ELLIPTICS_VERSION}" elliptics-client="${ELLIPTICS_VERSION}" libcocaine-plugin-elliptics="${ELLIPTICS_VERSION}"
+mkdir -p /opt/elliptics/history.2 && chmod 777 /opt/elliptics/history.2
+mkdir -p /opt/elliptics/eblob.2/ && chmod 777 /opt/elliptics/eblob.2/
+mkdir -p /opt/elliptics/eblob.2/data

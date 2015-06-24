@@ -15,7 +15,9 @@ Vagrant.configure(2) do |config|
   nodes_cfg.each do |node_cfg|
     config.vm.define node_cfg["name"] do |node|
       config.vm.hostname = node_cfg["name"]
-      node.vm.provision "cocaine", type: "shell", path: "install_cocaine.sh"
+      node.vm.provision "add-reverbrain-repos", type: "shell", path: "add_reverbrain_repos.sh"
+      node.vm.provision "install-cocaine", type: "shell", path: "install_cocaine.sh"
+      # specify config to start with in this script
       node.vm.provision "start-cocaine", type: "shell", path: "start_cocaine.sh"
       node.vm.provision "run-examples", type: "shell", path: "run_examples.sh"
 
