@@ -75,3 +75,6 @@ sudo apt-get install -y elliptics="${ELLIPTICS_VERSION}" elliptics-client="${ELL
 mkdir -p /opt/elliptics/history.2 && chmod 777 /opt/elliptics/history.2
 mkdir -p /opt/elliptics/eblob.2/ && chmod 777 /opt/elliptics/eblob.2/
 mkdir -p /opt/elliptics/eblob.2/data
+
+# pass all multicast traffic through eth1
+sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev eth1
