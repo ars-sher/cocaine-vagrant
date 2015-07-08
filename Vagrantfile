@@ -18,8 +18,8 @@ Vagrant.configure(2) do |config|
       node.vm.provision "add-reverbrain-repos", type: "shell", path: "add_reverbrain_repos.sh"
       node.vm.provision "install-cocaine", type: "shell", path: "install_cocaine.sh"
       # specify config to start with in this script
-      node.vm.provision "start-cocaine", type: "shell", path: "start_cocaine.sh"
-      node.vm.provision "run-examples", type: "shell", path: "run_examples.sh"
+      # node.vm.provision "start-cocaine", type: "shell", path: "start_cocaine.sh"
+      # node.vm.provision "run-examples", type: "shell", path: "run_examples.sh"
 
       # node.vm.network "public_network", ip: node_cfg["ip"]  # bridged in virtualbox
       # host-only network in virtualbox. Host will be seen as 192.168.0.1 from the boxes on fresh install of VB (default vboxnet0 address is 192.168.0.1).
