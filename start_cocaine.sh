@@ -10,8 +10,13 @@ set -e
 # disown
 # sleep 10
 
+sudo mkdir -p /var/run/cocaine
+sudo mkdir -p /var/lib/cocaine/runlists/
+sudo touch /var/lib/cocaine/runlists/default
+sudo chown -R cocaine /var/lib/cocaine/
+sudo chown -R cocaine /var/run/cocaine
 echo "*** Starting cocaine ***"
-sudo service cocaine-runtime stop
+sudo service cocaine-v12-runtime stop
 sudo sh -c 'cat > /etc/default/cocaine-runtime <<EOF
 CONFIG_PATH="/vagrant/cocaine-conf/cocaine-local.conf"
 RUNTIME_PATH="/var/run/cocaine"
